@@ -29,7 +29,7 @@ namespace Shadowsocks.Encryption
 
         public static IEncryptor GetEncryptor(string method, string password, bool onetimeauth, bool isudp)
         {
-            if (string.IsNullOrEmpty(method))
+            if (method.IsNullOrEmpty())
             {
                 method = "aes-256-cfb";
             }
