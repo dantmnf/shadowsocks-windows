@@ -21,6 +21,10 @@ namespace Shadowsocks.Encryption
             {
                 _registeredEncryptors.Add(method, typeof(SodiumEncryptor));
             }
+            foreach (string method in NativeEncryptor.SupportedCiphers())
+            {
+                _registeredEncryptors.Add(method, typeof(SodiumEncryptor));
+            }
         }
 
         public static IEncryptor GetEncryptor(string method, string password, bool onetimeauth, bool isudp)

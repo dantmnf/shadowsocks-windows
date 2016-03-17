@@ -190,5 +190,44 @@ namespace test
                 throw;
             }
         }
+
+        [TestMethod]
+        public void TestNativeEncryption()
+        {
+            // run it once before the multi-threading test to initialize global tables
+            RunSingleNativeEncryptionThread();
+            List<Thread> threads = new List<Thread>();
+            for (int i = 0; i < 10; i++)
+            {
+                Thread t = new Thread(new ThreadStart(RunSingleNativeEncryptionThread));
+                threads.Add(t);
+                t.Start();
+            }
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+            Assert.IsFalse(encryptionFailed);
+        }
+
+        private void RunSingleNativeEncryptionThread()
+        {
+            try
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    IEncryptor encryptor;
+                    IEncryptor decryptor;
+                    encryptor = new NativeEncryptor("aes-256-cfb-native", "barfoo!", false, false);
+                    decryptor = new NativeEncryptor("aes-256-cfb-native", "barfoo!", false, false);
+                    RunEncryptionRound(encryptor, decryptor);
+                }
+            }
+            catch
+            {
+                encryptionFailed = true;
+                throw;
+            }
+        }
     }
 }

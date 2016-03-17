@@ -186,6 +186,8 @@
     <Compile Include="Encryption\EncryptorFactory.cs" />
     <Compile Include="Encryption\IVEncryptor.cs" />
     <Compile Include="Encryption\MbedTLS.cs" />
+    <Compile Include="Encryption\Native.cs" />
+    <Compile Include="Encryption\NativeEncryptor.cs" />
     <Compile Include="Encryption\PolarSSL.cs" />
     <Compile Include="Encryption\PolarSSLEncryptor.cs" />
     <Compile Include="Encryption\Sodium.cs" />
